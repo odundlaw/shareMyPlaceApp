@@ -1,15 +1,26 @@
 import React from "react";
-
+import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
-import { PlusCircleIcon } from "@heroicons/react/outline";
 
-function NewPlaces() {
+import { PlusCircleIcon } from "@heroicons/react/outline";
+import { fetchPlaces } from "./UserPlaces";
+
+function UpdatePlace() {
+  const [place, setPlace] = React.useState(null);
+  const { placeId } = useParams();
+  const formRef = React.useRef(null);
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
-  } = useForm({ mode: "all", shouldUnregister: true });
+  } = useForm({ mode: "all", shouldUnregister: true,});
+
+
+  React.useEffect(() => {
+    setPlace(fetchPlaces().find((p) => p.id === placeId));
+    formRef.current.focus();
+  }, [placeId]);
 
   const onSubmit = (data) => console.log(data);
 
@@ -24,6 +35,7 @@ function NewPlaces() {
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-3"
+            ref={formRef}
           >
             <div className="flex flex-col gap-2">
               <label
@@ -33,6 +45,7 @@ function NewPlaces() {
                 Title
               </label>
               <input
+                defaultValue={place ? place.title :""}
                 {...register("title", {
                   required: true,
                   maxLength: 50,
@@ -56,6 +69,7 @@ function NewPlaces() {
                 Description
               </label>
               <textarea
+                defaultValue={place ? place.description : ""}
                 {...register("description", {
                   required: true,
                   minLength: 10,
@@ -82,6 +96,7 @@ function NewPlaces() {
                 Address
               </label>
               <input
+                defaultValue={place ? place.address : ""}
                 {...register("address", {
                   required: true,
                   minLength: 15,
@@ -101,8 +116,7 @@ function NewPlaces() {
             <div className="p-2 flex justify-center">
               <button
                 type="submit"
-                className="disabled:cursor-not-allowed disabled:bg-slate-100  p-3 font-bold text-white bg-slate-900 rounded-full w-[50%] shrink-0  flex justify-center items-center gap-1"
-                disabled={!isValid}
+                className="p-3 font-bold text-white bg-slate-900 rounded-full w-[50%] shrink-0  flex justify-center items-center gap-1"
               >
                 ADD PLACE <PlusCircleIcon height={20} width={20} />
               </button>
@@ -114,4 +128,4 @@ function NewPlaces() {
   );
 }
 
-export default NewPlaces;
+export default UpdatePlace;

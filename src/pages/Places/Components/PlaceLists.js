@@ -18,7 +18,7 @@ function PlaceLists({ userPlace }) {
   }
 
   return (
-    <div className="flex flex-col w-[90%] sm:w-[80%] md:w-[70%] lg:w-[55%] items-center gap-5">
+    <div className="flex flex-col w-[90%] sm:w-[80%] md:w-[65%] lg:w-[55%] items-center gap-5">
       {userPlace?.map((place) => (
         <PlaceItem
           key={place.id}

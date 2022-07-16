@@ -16,7 +16,7 @@ function Layout() {
       <Backdrop show={show} onClick={sideBarToggleHandler} />
       <SideDrawer show={show} onClick={sideBarToggleHandler} />
       <Header show={show} toggle={sideBarToggleHandler} />
-      <main className="p-10 flex justify-center w-full bg-neutral-50 h-full mb-10">
+      <main className="p-10 flex justify-center w-full bg-neutral-400 h-full mb-10">
         <Outlet />
       </main>
     </React.Fragment>

@@ -22,16 +22,16 @@ const placesArray = [
     description: "One of the most famous sky scrapers in the world!",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg",
-    address: "20 W 34th St, New York, NY 10001",
+    address: "140, OLOJO DRIVE, OJO LAGOS STATE",
     location: {
-      lat: 40.7484405,
-      lng: -73.9878584,
+      lat: 6.455800827731088,
+      lng: 3.2007616759386277,
     },
     creator: "2",
   },
 ];
 
-const fetchPlaces = () => placesArray;
+export const fetchPlaces = () => placesArray;
 
 function UserPlalces() {
   const [userPlace, setUserPlace] = React.useState([]);
