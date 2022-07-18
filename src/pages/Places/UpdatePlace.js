@@ -12,15 +12,20 @@ function UpdatePlace() {
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
-  } = useForm({ mode: "all", shouldUnregister: true,});
+    reset,
+  } = useForm({ mode: "onChange", shouldUnregister: true });
 
+  const resetAsyncForm = React.useCallback(() => {
+    const pp = fetchPlaces().find((p) => p.id === placeId);
+    reset(pp);
+    setPlace(pp);
+  }, [placeId, reset]);
 
   React.useEffect(() => {
-    setPlace(fetchPlaces().find((p) => p.id === placeId));
-    formRef.current.focus();
-  }, [placeId]);
+    resetAsyncForm();
+  }, [resetAsyncForm]);
 
   const onSubmit = (data) => console.log(data);
 
@@ -45,7 +50,7 @@ function UpdatePlace() {
                 Title
               </label>
               <input
-                defaultValue={place ? place.title :""}
+                defaultValue={place ? place.title : ""}
                 {...register("title", {
                   required: true,
                   maxLength: 50,
@@ -96,12 +101,12 @@ function UpdatePlace() {
                 Address
               </label>
               <input
-                defaultValue={place ? place.address : ""}
                 {...register("address", {
                   required: true,
                   minLength: 15,
                   maxLength: 150,
                 })}
+                defaultValue={place ? place.address : ""}
                 className={`${
                   errors.address
                     ? "border-red-300 text-red-300 focus:border-red-300"
@@ -116,9 +121,10 @@ function UpdatePlace() {
             <div className="p-2 flex justify-center">
               <button
                 type="submit"
-                className="p-3 font-bold text-white bg-slate-900 rounded-full w-[50%] shrink-0  flex justify-center items-center gap-1"
+                className="disabled:cursor-not-allowed disabled:bg-slate-200  p-3 font-bold text-white bg-slate-900 rounded-full w-full sm:w-[50%] shrink-0  flex justify-center items-center gap-1"
+                disabled={!isValid}
               >
-                ADD PLACE <PlusCircleIcon height={20} width={20} />
+                UPDATE PLACE <PlusCircleIcon height={20} width={20} />
               </button>
             </div>
           </form>

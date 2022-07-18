@@ -101,7 +101,7 @@ function NewPlaces() {
             <div className="p-2 flex justify-center">
               <button
                 type="submit"
-                className="disabled:cursor-not-allowed disabled:bg-slate-100  p-3 font-bold text-white bg-slate-900 rounded-full w-[50%] shrink-0  flex justify-center items-center gap-1"
+                className="disabled:cursor-not-allowed disabled:bg-slate-200  p-3 font-bold text-white bg-slate-900 rounded-full w-[100%] sm:w-[50%] shrink-0  flex justify-center items-center gap-1"
                 disabled={!isValid}
               >
                 ADD PLACE <PlusCircleIcon height={20} width={20} />

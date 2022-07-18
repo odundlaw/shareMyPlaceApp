@@ -13,7 +13,7 @@ function SideDrawer({ show, onClick }) {
           : "-translate-x-96 transition-transform duration-200"
       }`}
     >
-      <strong className="font-light text-xl text-cyan-800 flex items-center gap-2 justify-center cursor-pointer bg-slate-50 p-3.5 rounded-full mt-5">
+      <strong className="font-light text-lg sm:text-xl text-cyan-800 flex items-center gap-2 justify-center cursor-pointer bg-slate-50 p-3.5 rounded-full mt-5">
         <MapIcon className="h-5 w-5 text-pink-300" /> My Place App
       </strong>
 
