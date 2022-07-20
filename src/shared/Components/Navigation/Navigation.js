@@ -14,7 +14,7 @@ export const linkItems = [
   { to: "/", text: "All Users", icon: UserIcon },
   { to: "/1/places", text: "My Places", icon: MapIcon },
   { to: "/places/new", text: "Add Place", icon: PlusIcon },
-  { to: "/auth", text: "Authenticate", icon: LoginIcon },
+  { to: "/authentication", text: "Authenticate", icon: LoginIcon },
 ];
 
 function Navigation({ show, toggle }) {
