@@ -71,7 +71,7 @@ function SignUp({ onChangeToLogin }) {
                 errors.fullName
                   ? "border-red-300 text-red-300 focus:border-red-300"
                   : " border-slate-300 focus:border-slate-500"
-              } "ring-0 active:ring-0 focus:outline-0  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
+              } "ring-0 active:ring-0 focus:outline-none  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
             />
             <span className="text-red-400 text-sm my-[-4px]">
               {errors.fullName && "Usernme is required!"}
@@ -92,7 +92,7 @@ function SignUp({ onChangeToLogin }) {
                 errors.username
                   ? "border-red-300 text-red-300 focus:border-red-300"
                   : " border-slate-300 focus:border-slate-500"
-              } "ring-0 active:ring-0 focus:outline-0  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
+              } "ring-0 active:ring-0 focus:outline-none  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
             />
             <span className="text-red-400 text-sm my-[-4px]">
               {errors.username && "Usernme is required!"}
@@ -114,7 +114,7 @@ function SignUp({ onChangeToLogin }) {
                 errors.password
                   ? "border-red-300 text-red-300 focus:border-red-300"
                   : " border-slate-300 focus:border-slate-500"
-              } "ring-0 active:ring-0 focus:outline-0  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
+              } "ring-0 active:ring-0 focus:outline-none  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
             />
             <span className="text-red-400 text-sm my-[-4px]">
               {errors.password && "Password is required!"}
@@ -138,7 +138,7 @@ function SignUp({ onChangeToLogin }) {
                 errors.password
                   ? "border-red-300 text-red-300 focus:border-red-300"
                   : " border-slate-300 focus:border-slate-500"
-              } "ring-0 active:ring-0 focus:outline-0  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
+              } "ring-0 active:ring-0 focus:outline-none  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
             />
             <span className="text-red-400 text-sm my-[-4px]">
               {errors.confirmPassword && errors.confirmPassword.message}

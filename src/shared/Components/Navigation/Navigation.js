@@ -1,23 +1,16 @@
 import React from "react";
 import NavigationItems from "./NavigationItems";
 
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import {
-  UserIcon,
-  MapIcon,
-  PlusIcon,
-  LoginIcon,
-  MenuIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+  AuthLinkItems,
+  UnAuthenticatedLinkItems,
+} from "../../../utils/linkItems";
 
-export const linkItems = [
-  { to: "/", text: "All Users", icon: UserIcon },
-  { to: "/1/places", text: "My Places", icon: MapIcon },
-  { to: "/places/new", text: "Add Place", icon: PlusIcon },
-  { to: "/authentication", text: "Authenticate", icon: LoginIcon },
-];
+function Navigation({ show, toggle, auth }) {
 
-function Navigation({ show, toggle }) {
+  const linkItems = auth.isLoggedIn ? AuthLinkItems : UnAuthenticatedLinkItems;
+
   return (
     <React.Fragment>
       <nav className="sm:hidden flex z-60">
@@ -32,7 +25,7 @@ function Navigation({ show, toggle }) {
           )}
         </div>
       </nav>
-      <nav className="hidden  sm:basis-[70%] sm:max-w-md  sm:flex md:max-w-md  justify-between">
+      <nav className="hidden sm:basis-[75%] sm:max-w-md sm:flex md:max-w-md sm:justify-end sm:gap-2">
         {linkItems.map((link, index) => (
           <NavigationItems
             key={index}

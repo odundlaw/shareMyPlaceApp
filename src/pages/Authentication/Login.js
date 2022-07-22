@@ -1,16 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../Context/Auth/AuthState";
 
 import { LoginIcon } from "@heroicons/react/outline";
 
 function Login({ onChangeToSignUp }) {
+  const auth = useAuth();
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const loginFormHandler = (data) => console.log(data);
+  const loginFormHandler = (data) => {
+    console.log(data);
+    auth.login();
+  };
+
+  console.log(auth.isLoggedIn)
 
   return (
     <main className="w-full flex flex-col h-full justify-center items-center p-10">
@@ -51,7 +59,7 @@ function Login({ onChangeToSignUp }) {
                 errors.username
                   ? "border-red-300 text-red-300 focus:border-red-300"
                   : " border-slate-300 focus:border-slate-500"
-              } "ring-0 active:ring-0 focus:outline-0  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
+              } "ring-0 active:ring-0 focus:ring-0 focus:outline-none active:outline-none   border h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
             />
             <span className="text-red-400 text-sm my-[-4px]">
               {errors.username && "Usernme is required!"}
@@ -73,7 +81,7 @@ function Login({ onChangeToSignUp }) {
                 errors.password
                   ? "border-red-300 text-red-300 focus:border-red-300"
                   : " border-slate-300 focus:border-slate-500"
-              } "ring-0 active:ring-0 focus:outline-0  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
+              } "ring-0 active:ring-0 focus:outline-none  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
             />
             <span className="text-red-400 text-sm my-[-4px]">
               {errors.password && "Password is required!"}

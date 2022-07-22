@@ -39,7 +39,10 @@ function PlaceItem(props) {
         footer={
           <div className="w-full flex flex-row justify-between items-center p-1">
             {" "}
-            <button className="text-md rounded-full text-black hover:bg-slate-900 hover:text-white hover:transition-all hover:duration-300 border bg-slate-300 border-slate-900 px-3 py-1" onClick={deleteModalCloseHandler}>
+            <button
+              className="text-md rounded-full text-black hover:bg-slate-900 hover:text-white hover:transition-all hover:duration-300 border bg-slate-300 border-slate-900 px-3 py-1"
+              onClick={deleteModalCloseHandler}
+            >
               CANCEL
             </button>
             <button className="text-md rounded-full text-pink-500 hover:bg-pink-400 hover:transition-all hover:duration-300 hover:text-white px-3 py-1 border border-pink-400">
@@ -76,19 +79,19 @@ function PlaceItem(props) {
         <footer className="flex w-full justify-center items-center border-t border-t-slate-300 h-auto">
           <div className="p-4 space-x-6 flex">
             <button
-              className="font-bold text-xs p-1 rounded-sm bg-slate-400 sm:text-sm bg-transparent border border-slate-500 px-2 hover:bg-pink-400 hover:transition-all hover:text-white"
+              className="font-bold text-xs p-1 rounded-full shadow-md bg-transparent border sm:text-sm px-2 hover:bg-pink-400 hover:transition-all hover:text-white"
               onClick={showMapHandler}
             >
               VIEW ON MAP
             </button>
             <button
-              className="font-bold text-xs p-1 rounded-sm  sm:text-sm bg-pink-400 text-white px-5 hover:brightness-50"
+              className="font-bold text-xs p-1 rounded-full shadow-md sm:text-sm bg-pink-400 text-white px-5 hover:brightness-50"
               onClick={() => navigate(`/places/${props.id}`)}
             >
               EDIT
             </button>
             <button
-              className="font-bold text-xs p-1 rounded-sm sm:text-sm bg-pink-900 text-white px-5 hover:brightness-50"
+              className="font-bold text-xs p-1 rounded-full shadow-md  sm:text-sm bg-pink-900 text-white px-5 hover:brightness-50"
               onClick={deleteModalOpenHandler}
             >
               DELETE
