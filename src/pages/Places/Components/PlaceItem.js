@@ -19,7 +19,7 @@ function PlaceItem(props) {
   return (
     <React.Fragment>
       {/* Show  Map Modal */}
-      <Modal show={showMap} onClick={showMapHandler} header={props.address}>
+      <Modal show={showMap} onClick={showMapHandler} header={props.address} class>
         <div className="w-full h-fit relative ">
           <Map
             center={getLatLongFromObject(props.location)}
@@ -40,7 +40,7 @@ function PlaceItem(props) {
           <div className="w-full flex flex-row justify-between items-center p-1">
             {" "}
             <button
-              className="text-md rounded-full text-black hover:bg-slate-900 hover:text-white hover:transition-all hover:duration-300 border bg-slate-300 border-slate-900 px-3 py-1"
+              className="text-md rounded-full text-white hover:bg-white hover:text-slate-900 hover:transition-all hover:duration-300 border bg-slate-900 border-slate-900 px-3 py-1"
               onClick={deleteModalCloseHandler}
             >
               CANCEL

@@ -3,26 +3,48 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { getImageFromFile } from "../../utils/helperFunctions";
 
+const imageTypes = ["image/jpeg", "image/jpg", "image/png"];
+
 function SignUp({ onChangeToLogin }) {
   const [image, setImage] = React.useState("");
+  const [imageError, setImageError] = React.useState("");
 
   const {
     handleSubmit,
     register,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "all" });
 
   const passwordRef = React.useRef({});
   passwordRef.current = watch("password", "");
 
   const userImageRef = React.useRef();
 
-  const signUpFormHandler = (data) => console.log(data);
+  const signUpFormHandler = async(data) => {
+    const { files } = userImageRef.current;
+    if (!image || !imageTypes.includes(files[0].type)) {
+      return setImageError("InValid Image Type");
+    }
+    const formData = new FormData();
+    formData.append("username", data.username);
+    formData.append("fullName", data.fullName);
+    formData.append("password", data.password);
+    formData.append("confirmPassword", data.confirmPassword);
+    formData.append("image", files[0]);
+    console.log(formData.get("image"));
+    setImageError("");
+
+  };
 
   const handleFileChange = async (event) => {
-    const imageSource = await getImageFromFile(event.target.files[0]);
+    const { files } = event.target;
+    if (!imageTypes.includes(files[0].type)) {
+      return setImageError("InValid Image Type");
+    }
+    const imageSource = await getImageFromFile(files[0]);
     setImage(imageSource);
+    setImageError("");
   };
 
   return (
@@ -34,9 +56,17 @@ function SignUp({ onChangeToLogin }) {
           onSubmit={handleSubmit(signUpFormHandler)}
         >
           <div className="flex justify-center relative">
-            <div className="w-24 h-24 rounded-full border p-2">
+            <div
+              className={`w-[100px] h-[100px] rounded-full border p-1 ${
+                imageError && "border border-red-400"
+              }`}
+            >
               {image ? (
-                <img src={image} alt="Avatar" className="rounded-full h-[80px] w-[80px]" />
+                <img
+                  src={image}
+                  alt="Avatar"
+                  className="rounded-full h-[92px] w-[94px]"
+                />
               ) : (
                 <UserIcon className="text-gray-200 " />
               )}
@@ -48,9 +78,7 @@ function SignUp({ onChangeToLogin }) {
             <input
               defaultValue=""
               type="file"
-              {...register("userImage", {
-                required: true,
-              })}
+              {...register("userImage")}
               hidden
               ref={userImageRef}
               onChange={handleFileChange}
@@ -74,7 +102,7 @@ function SignUp({ onChangeToLogin }) {
               } "ring-0 active:ring-0 focus:outline-none  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
             />
             <span className="text-red-400 text-sm my-[-4px]">
-              {errors.fullName && "Usernme is required!"}
+              {errors.fullName && "Full Name is required!"}
             </span>
           </div>
           <div className="flex flex-col gap-2">

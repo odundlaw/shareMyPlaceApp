@@ -10,7 +10,7 @@ function Map({ center, zoom, address }) {
       dprs={[1, 2]}
       defaultCenter={center}
       defaultZoom={zoom}
-      height={330}
+      height={270}
     >
       <ZoomControl />
       <Marker width={50} anchor={center} />

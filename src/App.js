@@ -6,6 +6,11 @@ import NewPlaces from "./pages/Places/NewPlaces";
 import UsersPage from "./pages/Users/UsersPage";
 import UpdatePlace from "./pages/Places/UpdatePlace";
 import Authentication from "./pages/Authentication/Authentication";
+import LogOut from "./pages/Authentication/LogOut";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import useAuth from "./Context/Auth/AuthState";
 
 function App() {
@@ -13,6 +18,7 @@ function App() {
   console.log(isLoggedIn);
   return (
     <div className="h-[100vh] bg-neutral-200 relative sm:overflow-y-scroll">
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<UsersPage />} />
@@ -23,6 +29,7 @@ function App() {
           )}
         </Route>
         <Route path="/authentication" element={<Authentication />} />
+        <Route path="/signOut" element={<LogOut />} />
         <Route path="*" element={<div>No Page Found</div>} />
       </Routes>
     </div>

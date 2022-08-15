@@ -10,7 +10,7 @@ export const AuthLinkItems = [
   { to: "/", text: "All Users", icon: UserIcon },
   { to: "/1/places", text: "My Places", icon: MapIcon },
   { to: "/places/new", text: "Add Place", icon: PlusIcon },
-  { to: "/logout", text: "LogOut User", icon: LogoutIcon },
+  { to: "/signOut", text: "SignOut User", icon: LogoutIcon },
 ];
 
 export const UnAuthenticatedLinkItems = [

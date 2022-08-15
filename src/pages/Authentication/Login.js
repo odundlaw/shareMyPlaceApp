@@ -1,11 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Context/Auth/AuthState";
+import useFetch from "../../hooks/useFetch";
 
 import { LoginIcon } from "@heroicons/react/outline";
+import { toast } from "react-toastify";
 
 function Login({ onChangeToSignUp }) {
   const auth = useAuth();
+
+  const { resetErrors, doApiCall, error, loading } = useFetch();
 
   const {
     handleSubmit,
@@ -13,12 +17,23 @@ function Login({ onChangeToSignUp }) {
     formState: { errors },
   } = useForm();
 
-  const loginFormHandler = (data) => {
-    console.log(data);
-    auth.login();
+  const loginFormHandler = async (loginDetails) => {
+    resetErrors();
+
+    const loginData = {
+      email: loginDetails.username,
+      password: loginDetails.password,
+    };
+
+    try {
+      const data = await doApiCall("auth", "POST", loginData);
+      console.log(data);
+    } catch (err) {
+      toast.error(error ? error : "Check your Inputs!", { toastId: "error1" });
+    }
   };
 
-  console.log(auth.isLoggedIn)
+  /* console.log(auth.isLoggedIn); */
 
   return (
     <main className="w-full flex flex-col h-full justify-center items-center p-10">

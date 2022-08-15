@@ -2,7 +2,7 @@ import { XIcon } from "@heroicons/react/outline";
 import React from "react";
 import ReactDOM from "react-dom";
 
-function Modal({ children, show, header, footer, onClick, modalHeight }) {
+function Modal({ children, show, header, footer, onClick, modalHeight, modalWidth }) {
   const modal = (
     <React.Fragment>
       {show && (
@@ -20,8 +20,8 @@ function Modal({ children, show, header, footer, onClick, modalHeight }) {
       >
         {" "}
         <div
-          className={`max-w-lg bg-white container rounded-md ${
-            modalHeight ? modalHeight : "h-[400px]"
+          className={`max-w-lg ${modalWidth ? modalWidth : "w-2/3"} bg-white container rounded-md ${
+            modalHeight ? modalHeight : "h-[350px]"
           } relative shadow-lg`}
         >
           <header className="border-b border-b-slate-300 bg-pink-400 rounded-t-md p-2 flex justify-between items-center ">
