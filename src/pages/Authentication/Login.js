@@ -19,21 +19,27 @@ function Login({ onChangeToSignUp }) {
 
   const loginFormHandler = async (loginDetails) => {
     resetErrors();
-
-    const loginData = {
+    const loginData = JSON.stringify({
       email: loginDetails.username,
       password: loginDetails.password,
-    };
+    });
 
     try {
-      const data = await doApiCall("auth", "POST", loginData);
-      console.log(data);
-    } catch (err) {
-      toast.error(error ? error : "Check your Inputs!", { toastId: "error1" });
-    }
+      const data = await doApiCall("auth", "POST", loginData, {
+        "Content-Type": "application/json",
+      });
+      auth.login();
+    } catch (err) {}
   };
 
-  /* console.log(auth.isLoggedIn); */
+  if (error) {
+    toast.error(
+      typeof error === "string" ? error : "An Error Occured Kinly Try Again!",
+      {
+        toastId: "error1",
+      }
+    );
+  }
 
   return (
     <main className="w-full flex flex-col h-full justify-center items-center p-10">
