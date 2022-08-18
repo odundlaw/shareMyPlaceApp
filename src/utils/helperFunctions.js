@@ -13,3 +13,9 @@ export const getImageFromFile = (filePath) => {
   fileReader.readAsDataURL(filePath);
   return promise;
 };
+
+export const saveToLocalStorage = (data) => {
+  for (const key in data) {
+    localStorage.setItem(key, data[key]);
+  }
+};

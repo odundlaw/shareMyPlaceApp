@@ -21,6 +21,7 @@ function useFetch() {
         if (data.status >= 400 || data.status < 200) {
           throw new Error("Unable to Perform The operation");
         }
+        setLoading(false);
         return data;
       } catch (err) {
         setError(err.response?.data);

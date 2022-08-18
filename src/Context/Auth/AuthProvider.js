@@ -1,10 +1,12 @@
 import React from "react";
+import { saveToLocalStorage } from "../../utils/helperFunctions";
 import AuthContext from "./AuthContext";
 
 function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-  const login = React.useCallback(() => {
+  const login = React.useCallback((data) => {
+    saveToLocalStorage({ accessToken: data.data });
     setIsLoggedIn(true);
   }, []);
 
