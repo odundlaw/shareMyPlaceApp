@@ -1,6 +1,8 @@
 import React from "react";
 import UserList from "./Components/UserList";
 
+import {toast} from "react-toastify";
+
 const userList = [
   {
     id: "1",
@@ -22,11 +24,15 @@ function UsersPage() {
   const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {
+    toast.success("You have Signed In Successfully!", { toastId: "toast2" });
+  }, []);
+
+  React.useEffect(() => {
     setUsers(getUsers());
   }, [setUsers]);
 
   return (
-    <div >
+    <div>
       <UserList userData={users} />
     </div>
   );

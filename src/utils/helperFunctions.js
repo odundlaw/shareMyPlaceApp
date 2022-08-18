@@ -19,3 +19,7 @@ export const saveToLocalStorage = (data) => {
     localStorage.setItem(key, data[key]);
   }
 };
+
+export const removeItemFromLocalStorage = (key) => {
+  localStorage.removeItem(key);
+};

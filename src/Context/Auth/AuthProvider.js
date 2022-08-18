@@ -1,5 +1,8 @@
 import React from "react";
-import { saveToLocalStorage } from "../../utils/helperFunctions";
+import {
+  removeItemFromLocalStorage,
+  saveToLocalStorage,
+} from "../../utils/helperFunctions";
 import AuthContext from "./AuthContext";
 
 function AuthProvider({ children }) {
@@ -11,6 +14,7 @@ function AuthProvider({ children }) {
   }, []);
 
   const logOut = React.useCallback(() => {
+    removeItemFromLocalStorage("accessToken");
     setIsLoggedIn(false);
   }, []);
 

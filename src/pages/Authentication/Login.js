@@ -7,6 +7,7 @@ import { LoginIcon } from "@heroicons/react/outline";
 import { toast } from "react-toastify";
 /* import swal from "sweetalert"; */
 import Spinner from "../../shared/Components/UI/Spinner";
+import { Navigate } from "react-router";
 
 function Login({ onChangeToSignUp }) {
   const auth = useAuth();
@@ -47,6 +48,7 @@ function Login({ onChangeToSignUp }) {
   return (
     <React.Fragment>
       {/*  {<Modal show={loading} header={null} ><p>Loading...</p> </Modal> } */}
+      {auth.isLoggedIn && <Navigate to="/" />}
       <main className="w-full flex flex-col h-full justify-center items-center p-10">
         <div className="max-w-lg flex flex-col bg-white shadow-lg w-3/4  sm:w-[350px] rounded-md p-6">
           <h2 className="py-4 text-xl text-center">
