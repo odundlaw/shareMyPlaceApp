@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router";
 
+import withInternetConnectivity from "./hoc/WithInternetConnectivity";
+
 import Layout from "./shared/Components/Layout/Layout";
 import UserPlalces from "./pages/Places/UserPlaces";
 import NewPlaces from "./pages/Places/NewPlaces";
@@ -13,22 +15,25 @@ import "react-toastify/dist/ReactToastify.css";
 
 import useAuth from "./Context/Auth/AuthState";
 
-function App() {
+function App({ isOnline }) {
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
+  console.log(isOnline)
   return (
     <div className="h-[100vh] bg-neutral-200 relative sm:overflow-y-scroll">
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<UsersPage />} />
+          <Route index element={<UsersPage />} isOnline={isOnline} />
           <Route path="/:userId/places" element={<UserPlalces />} />
           {isLoggedIn && <Route path="/places/new" element={<NewPlaces />} />}
           {isLoggedIn && (
             <Route path="/places/:placeId" element={<UpdatePlace />} />
           )}
         </Route>
-        <Route path="/authentication" element={<Authentication />} />
+        <Route
+          path="/authentication"
+          element={<Authentication isOnline={isOnline} />}
+        />
         <Route path="/signOut" element={<LogOut />} />
         <Route path="*" element={<div>No Page Found</div>} />
       </Routes>
@@ -36,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default withInternetConnectivity(App);

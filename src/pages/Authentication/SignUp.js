@@ -3,6 +3,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { getImageFromFile } from "../../utils/helperFunctions";
 
+import { toast } from "react-toastify";
+
 const imageTypes = ["image/jpeg", "image/jpg", "image/png"];
 
 function SignUp({ onChangeToLogin }) {
@@ -21,10 +23,10 @@ function SignUp({ onChangeToLogin }) {
 
   const userImageRef = React.useRef();
 
-  const signUpFormHandler = async(data) => {
+  const signUpFormHandler = async (data) => {
     const { files } = userImageRef.current;
     if (!image || !imageTypes.includes(files[0].type)) {
-      return setImageError("InValid Image Type");
+      return setImageError("InValid Image Type Selected!");
     }
     const formData = new FormData();
     formData.append("username", data.username);
@@ -34,18 +36,21 @@ function SignUp({ onChangeToLogin }) {
     formData.append("image", files[0]);
     console.log(formData.get("image"));
     setImageError("");
-
   };
 
   const handleFileChange = async (event) => {
     const { files } = event.target;
     if (!imageTypes.includes(files[0].type)) {
-      return setImageError("InValid Image Type");
+      return setImageError("InValid Image Type Selected!");
     }
     const imageSource = await getImageFromFile(files[0]);
     setImage(imageSource);
     setImageError("");
   };
+
+  if (imageError) {
+    toast.error(imageError, { toastId: "error2" });
+  }
 
   return (
     <main className="w-full flex flex-col relative  items-center p-10 ">

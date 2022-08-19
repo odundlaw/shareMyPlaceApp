@@ -1,7 +1,7 @@
 import React from "react";
 import UserList from "./Components/UserList";
 
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const userList = [
   {
@@ -23,8 +23,12 @@ const getUsers = () => userList;
 function UsersPage() {
   const [users, setUsers] = React.useState([]);
 
+  const location = React.useLocation();
+
   React.useEffect(() => {
-    toast.success("You have Signed In Successfully!", { toastId: "toast2" });
+    if (location.state?.from === "login") {
+      toast.success("You have Signed In Successfully!", { toastId: "toast2" });
+    }
   }, []);
 
   React.useEffect(() => {

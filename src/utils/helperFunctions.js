@@ -14,7 +14,7 @@ export const getImageFromFile = (filePath) => {
   return promise;
 };
 
-export const saveToLocalStorage = (data) => {
+/* export const saveToLocalStorage = (data) => {
   for (const key in data) {
     localStorage.setItem(key, data[key]);
   }
@@ -22,4 +22,4 @@ export const saveToLocalStorage = (data) => {
 
 export const removeItemFromLocalStorage = (key) => {
   localStorage.removeItem(key);
-};
+}; */

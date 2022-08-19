@@ -1,22 +1,21 @@
 import React from "react";
-import {
-  removeItemFromLocalStorage,
-  saveToLocalStorage,
-} from "../../utils/helperFunctions";
+import useLocalStorage from "../../hooks/useLocalStorage";
+
 import AuthContext from "./AuthContext";
 
 function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [, setStorage] = useLocalStorage("placeAuthData");
 
   const login = React.useCallback((data) => {
-    saveToLocalStorage({ accessToken: data.data });
+    setStorage({ accessToken: data.data });
     setIsLoggedIn(true);
-  }, []);
+  }, [setStorage]);
 
   const logOut = React.useCallback(() => {
-    removeItemFromLocalStorage("accessToken");
+    setStorage({});
     setIsLoggedIn(false);
-  }, []);
+  }, [setStorage]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, logOut }}>

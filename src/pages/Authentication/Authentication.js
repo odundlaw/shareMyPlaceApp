@@ -6,7 +6,7 @@ import SignUp from "./SignUp";
 
 import { ArrowNarrowLeftIcon } from "@heroicons/react/outline";
 
-function Authentication() {
+function Authentication({ isOnline }) {
   const [authState, setAuthState] = React.useState(false);
 
   const navigate = useNavigate();
@@ -15,15 +15,16 @@ function Authentication() {
 
   return (
     <React.Fragment>
-      <div className="top-0 p-2 fixed cursor-pointer rounded-full shadow-lg m-5 bg-slate-900 z-50 border hover:bg-pink-500 hover:transition-all hover:duration-300"
-      onClick={()=> navigate("/")}
+      <div
+        className="top-0 p-2 fixed cursor-pointer rounded-full shadow-lg m-5 bg-slate-900 z-50 border hover:bg-pink-500 hover:transition-all hover:duration-300"
+        onClick={() => navigate("/")}
       >
         <ArrowNarrowLeftIcon className="w-8 h-8 text-white" />
       </div>
       {authState ? (
         <SignUp onChangeToLogin={authStateHandler} />
       ) : (
-        <Login onChangeToSignUp={authStateHandler} />
+        <Login onChangeToSignUp={authStateHandler} isOnline={isOnline} />
       )}
     </React.Fragment>
   );
