@@ -10,7 +10,9 @@ function LogOut() {
     logOut();
   }, [logOut]);
 
-  return <Navigate to="/authentication" replace={true} />;
+  return (
+    <Navigate to="/authentication" replace={true} state={{ from: "logout" }} />
+  );
 }
 
 export default LogOut;

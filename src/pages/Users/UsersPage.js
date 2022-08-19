@@ -1,4 +1,6 @@
 import React from "react";
+import { useLocation } from "react-router";
+
 import UserList from "./Components/UserList";
 
 import { toast } from "react-toastify";
@@ -23,13 +25,13 @@ const getUsers = () => userList;
 function UsersPage() {
   const [users, setUsers] = React.useState([]);
 
-  const location = React.useLocation();
+  const location = useLocation();
 
   React.useEffect(() => {
-    if (location.state?.from === "login") {
+    if (["login"].includes(location.state?.from)) {
       toast.success("You have Signed In Successfully!", { toastId: "toast2" });
     }
-  }, []);
+  }, [location.state?.from]);
 
   React.useEffect(() => {
     setUsers(getUsers());

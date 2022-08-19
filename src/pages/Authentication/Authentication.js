@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
+import { toast } from "react-toastify";
 
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -10,8 +11,15 @@ function Authentication({ isOnline }) {
   const [authState, setAuthState] = React.useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const authStateHandler = () => setAuthState((authState) => !authState);
+
+  React.useEffect(() => {
+    if (["logout"].includes(location.state?.from)) {
+      toast.success("You are now signed Out!", { toastId: "toast3" });
+    }
+  }, [location.state?.from]);
 
   return (
     <React.Fragment>
