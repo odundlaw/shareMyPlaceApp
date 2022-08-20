@@ -1,20 +1,26 @@
-import { CameraIcon, UserAddIcon, UserIcon } from "@heroicons/react/outline";
 import React from "react";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import swal from "sweetalert";
+import useFetch from "../../hooks/useFetch";
+
 import { getImageFromFile } from "../../utils/helperFunctions";
 
-import { toast } from "react-toastify";
+import { CameraIcon, UserAddIcon, UserIcon } from "@heroicons/react/outline";
 
 const imageTypes = ["image/jpeg", "image/jpg", "image/png"];
 
-function SignUp({ onChangeToLogin }) {
+function SignUp({ onChangeToLogin, isOnline }) {
   const [image, setImage] = React.useState("");
   const [imageError, setImageError] = React.useState("");
+
+  const { loading, error, doApiCall, resetErrors } = useFetch();
 
   const {
     handleSubmit,
     register,
     watch,
+    reset,
     formState: { errors },
   } = useForm({ mode: "all" });
 
@@ -24,18 +30,48 @@ function SignUp({ onChangeToLogin }) {
   const userImageRef = React.useRef();
 
   const signUpFormHandler = async (data) => {
+    if (!isOnline) {
+      return swal(
+        "Internet Connection Error!",
+        "Check your internet Connection and try again!",
+        "error",
+        { timer: 3000 }
+      );
+    }
+    resetErrors();
+
     const { files } = userImageRef.current;
     if (!image || !imageTypes.includes(files[0].type)) {
       return setImageError("InValid Image Type Selected!");
     }
+
     const formData = new FormData();
+    formData.append("email", data.email);
     formData.append("username", data.username);
     formData.append("fullName", data.fullName);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
     formData.append("image", files[0]);
-    console.log(formData.get("image"));
-    setImageError("");
+    console.log(data);
+    /* console.log(formData.get("image")); */
+
+    try {
+      setImageError("");
+      const dataSuccess = await doApiCall("users/createUser", "POST", formData);
+      const signUpObj = {};
+
+      if (dataSuccess.statusText === "Created") {
+        for (const key in data) {
+          signUpObj[key] = "";
+        }
+        reset(signUpObj);
+        setImage("");
+
+        toast.success("User Account Created Successfully", {
+          toastId: "success3",
+        });
+      }
+    } catch (err) {}
   };
 
   const handleFileChange = async (event) => {
@@ -50,6 +86,15 @@ function SignUp({ onChangeToLogin }) {
 
   if (imageError) {
     toast.error(imageError, { toastId: "error2" });
+  }
+
+  if (error && isOnline) {
+    toast.error(
+      typeof error === "string"
+        ? error
+        : "An Error Occured Check your form Fields and Try Again!",
+      { toastId: "error2" }
+    );
   }
 
   return (
@@ -115,7 +160,7 @@ function SignUp({ onChangeToLogin }) {
               htmlFor="username"
               className="text-[16px] font-light text-gray-500"
             >
-              Email/Username
+              Username
             </label>
             <input
               {...register("username", {
@@ -129,6 +174,27 @@ function SignUp({ onChangeToLogin }) {
             />
             <span className="text-red-400 text-sm my-[-4px]">
               {errors.username && "Usernme is required!"}
+            </span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="username"
+              className="text-[16px] font-light text-gray-500"
+            >
+              Email
+            </label>
+            <input
+              {...register("email", {
+                required: true,
+              })}
+              className={`${
+                errors.email
+                  ? "border-red-300 text-red-300 focus:border-red-300"
+                  : " border-slate-300 focus:border-slate-500"
+              } "ring-0 active:ring-0 focus:outline-none  border  h-8 rounded-sm text-gray-500 p-2 font-light text-sm"`}
+            />
+            <span className="text-red-400 text-sm my-[-4px]">
+              {errors.email && "Email is required!"}
             </span>
           </div>
           <div className="flex flex-col gap-2">
@@ -179,8 +245,9 @@ function SignUp({ onChangeToLogin }) {
           </div>
           <div className="py-2 w-[100%] flex flex-row items-center justify-center">
             <button
+              disabled={loading}
               type="submit"
-              className="bg-slate-800 text-white px-4 py-2 rounded-full shadow-sm shrink-0 w-full flex gap-2 items-center justify-center hover:bg-pink-400 hover:transition-all hover:duration-300"
+              className="disabled:bg-slate-400 disabled:cursor-not-allowed bg-slate-800 text-white px-4 py-2 rounded-full shadow-sm shrink-0 w-full flex gap-2 items-center justify-center hover:bg-pink-400 hover:transition-all hover:duration-300"
             >
               Sign Up User{" "}
               <UserAddIcon className="h-5 w-5 text-white" color="white" />

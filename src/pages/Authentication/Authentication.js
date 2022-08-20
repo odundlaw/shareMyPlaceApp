@@ -30,7 +30,7 @@ function Authentication({ isOnline }) {
         <ArrowNarrowLeftIcon className="w-8 h-8 text-white" />
       </div>
       {authState ? (
-        <SignUp onChangeToLogin={authStateHandler} />
+        <SignUp onChangeToLogin={authStateHandler} isOnline={isOnline} />
       ) : (
         <Login onChangeToSignUp={authStateHandler} isOnline={isOnline} />
       )}

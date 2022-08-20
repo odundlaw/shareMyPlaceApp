@@ -14,7 +14,7 @@ function useFetch() {
         const data = await axios({
           url: url,
           method,
-          data: requestBody && requestBody,
+          data: requestBody,
           headers: headers,
         });
 

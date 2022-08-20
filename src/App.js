@@ -17,7 +17,7 @@ import useAuth from "./Context/Auth/AuthState";
 
 function App({ isOnline }) {
   const { isLoggedIn } = useAuth();
-  console.log(isOnline)
+  console.log(isOnline);
   return (
     <div className="h-[100vh] bg-neutral-200 relative sm:overflow-y-scroll">
       <ToastContainer />
