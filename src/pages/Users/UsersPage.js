@@ -4,38 +4,43 @@ import { useLocation } from "react-router";
 import UserList from "./Components/UserList";
 
 import { toast } from "react-toastify";
-
-const userList = [
-  {
-    id: "1",
-    name: "Shittu Odunayo Lekan",
-    places: 4,
-    imageUrl: "odundlaw.jpg",
-  },
-  {
-    id: "2",
-    name: "Yusuf Olalekan Ridwan",
-    places: 2,
-    imageUrl: "odundlaw.jpg",
-  },
-];
-
-const getUsers = () => userList;
+import useFetch from "../../hooks/useFetch";
+import useAuth from "../../Context/Auth/AuthState";
+import swal from "sweetalert";
 
 function UsersPage() {
   const [users, setUsers] = React.useState([]);
 
   const location = useLocation();
 
-  React.useEffect(() => {
-    if (["login"].includes(location.state?.from)) {
-      toast.success("You have Signed In Successfully!", { toastId: "toast2" });
-    }
-  }, [location.state?.from]);
+  const { isLoggedIn } = useAuth();
+
+  const { resetErrors, loading, doApiCall, errors } = useFetch();
 
   React.useEffect(() => {
-    setUsers(getUsers());
-  }, [setUsers]);
+    if (["login"].includes(location.state?.from) && isLoggedIn) {
+      toast.success("You have Signed In Successfully!", { toastId: "toast2" });
+    }
+  }, [location.state?.from, isLoggedIn]);
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        resetErrors();
+        const userData = await doApiCall("users");
+        if (userData.statusText === "OK") {
+          setUsers(userData.data);
+        }
+      } catch (err) {}
+    })();
+  }, [setUsers, doApiCall, resetErrors]);
+
+  if(loading){
+    swal(
+      "Internet Connection Error!",
+      "Check your internet Connection and try again!",
+    );
+  }
 
   return (
     <div>

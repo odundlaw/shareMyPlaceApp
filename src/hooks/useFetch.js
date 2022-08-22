@@ -33,9 +33,9 @@ function useFetch() {
     []
   );
 
-  const resetErrors = () => {
+  const resetErrors = React.useCallback(() => {
     setError(null);
-  };
+  }, []);
 
   return {
     resetErrors,
