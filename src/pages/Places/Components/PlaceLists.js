@@ -3,7 +3,8 @@ import React from "react";
 import PlaceItem from "./PlaceItem";
 
 function PlaceLists({ userPlace }) {
-  if (userPlace.length === 0) {
+  console.log(userPlace)
+  if (userPlace.length <= 0) {
     return (
       <div className="shadow-md container flex flex-col justify-center items-center gap-4 p-10 rounded-md">
         <h2 className="text-xl font-light">
@@ -21,11 +22,12 @@ function PlaceLists({ userPlace }) {
     <div className="flex flex-col w-[90%] sm:w-[80%] md:w-[65%] lg:w-[55%] items-center gap-5">
       {userPlace?.map((place) => (
         <PlaceItem
-          key={place.id}
-          id={place.id}
+          key={place._id}
+          id={place._id}
+          placeId={place.placeId}
           title={place.title}
           description={place.description}
-          imageUrl={place.imageUrl}
+          imageUrl={place.image}
           address={place.address}
           location={place.location}
           creator={place.creator}

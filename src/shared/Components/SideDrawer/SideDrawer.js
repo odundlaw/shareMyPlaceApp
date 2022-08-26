@@ -2,11 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import NavigationItems from "../Navigation/NavigationItems";
 import { MapIcon } from "@heroicons/react/outline";
-import { AuthLinkItems, UnAuthenticatedLinkItems } from "../../../utils/linkItems";
+import {
+  AuthLinkItems,
+  UnAuthenticatedLinkItems,
+} from "../../../utils/linkItems";
 
 function SideDrawer({ show, onClick, auth }) {
-  const linkItems = auth.isLoggedIn ? AuthLinkItems : UnAuthenticatedLinkItems;
-  
+  const linkItems = auth.isLoggedIn
+    ? AuthLinkItems("6303eb89b257da88c8d8cb68")
+    : UnAuthenticatedLinkItems;
+
   const sideBar = (
     <div
       className={`w-[50%] bg-slate-800  h-[100vh] fixed z-20 sm:hidden shadow-sm p-5 ${

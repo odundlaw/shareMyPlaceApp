@@ -9,7 +9,9 @@ import {
 
 function Navigation({ show, toggle, auth }) {
 
-  const linkItems = auth.isLoggedIn ? AuthLinkItems : UnAuthenticatedLinkItems;
+  const linkItems = auth.isLoggedIn
+    ? AuthLinkItems("6303eb89b257da88c8d8cb68")
+    : UnAuthenticatedLinkItems;
 
   return (
     <React.Fragment>

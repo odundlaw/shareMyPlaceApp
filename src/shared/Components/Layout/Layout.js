@@ -31,7 +31,7 @@ function Layout() {
         toggle={sideBarToggleHandler}
         authentication={authMemo}
       />
-      <main className="p-10 flex justify-center w-full bg-neutral-400 h-full mb-10">
+      <main className="p-10 flex justify-center w-full bg-neutral-400 h-auto min-h-full mb-10">
         <Outlet />
       </main>
     </React.Fragment>

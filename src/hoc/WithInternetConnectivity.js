@@ -26,9 +26,9 @@ function withInternetConnectivity(Component) {
         { timer: 3000 }
       );
     } else {
-      swal("Internet Connection is Back!", "Click Ok to Continue", "success", {
+     /*  swal("Internet Connection is Back!", "Click Ok to Continue", "success", {
         timer: 3000,
-      });
+      }); */
     }
 
     return (

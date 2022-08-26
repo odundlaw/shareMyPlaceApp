@@ -42,12 +42,20 @@ function Login({ onChangeToSignUp, isOnline }) {
         "Content-Type": "application/json",
       });
       auth.login(data);
+
+      toast.success("You have Signed In Successfully!", {
+        toastId: "toast2",
+      });
     } catch (err) {}
   };
 
   if (error && isOnline) {
     toast.error(
-      typeof error === "string" ? error : "An Error Occured Kinly Try Again!",
+      typeof error === "string"
+        ? error
+        : error.message
+        ? error.message
+        : "An Error Occured Kinly Try Again!",
       {
         toastId: "error1",
       }

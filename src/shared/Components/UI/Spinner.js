@@ -1,6 +1,6 @@
 import React from "react";
 
-function Loader() {
+function Spinner() {
   return (
     <div className="flex items-center justify-center">
       <div
@@ -13,4 +13,4 @@ function Loader() {
   );
 }
 
-export default Loader;
+export default Spinner;

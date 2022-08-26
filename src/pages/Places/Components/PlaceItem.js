@@ -19,7 +19,12 @@ function PlaceItem(props) {
   return (
     <React.Fragment>
       {/* Show  Map Modal */}
-      <Modal show={showMap} onClick={showMapHandler} header={props.address} class>
+      <Modal
+        show={showMap}
+        onClick={showMapHandler}
+        header={props.address}
+        class
+      >
         <div className="w-full h-fit relative ">
           <Map
             center={getLatLongFromObject(props.location)}
@@ -60,7 +65,7 @@ function PlaceItem(props) {
 
       <div className="container flex h-fit sm:h-[450px] flex-col bg-white rounded-md shadow-md shadow-stone-700 gap-4">
         <img
-          src={props.imageUrl}
+          src={`http://localhost:8080/${props.imageUrl}`}
           alt={props.title}
           className="w-full h-[55%] rounded-t-md"
         />
@@ -86,7 +91,7 @@ function PlaceItem(props) {
             </button>
             <button
               className="font-bold text-xs p-1 rounded-full shadow-md sm:text-sm bg-pink-400 text-white px-5 hover:brightness-50"
-              onClick={() => navigate(`/places/${props.id}`)}
+              onClick={() => navigate(`/places/${props.placeId}`)}
             >
               EDIT
             </button>

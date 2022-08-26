@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 import useFetch from "../../hooks/useFetch";
@@ -13,6 +14,8 @@ const imageTypes = ["image/jpeg", "image/jpg", "image/png"];
 function SignUp({ onChangeToLogin, isOnline }) {
   const [image, setImage] = React.useState("");
   const [imageError, setImageError] = React.useState("");
+
+  /*  const navigate = useNavigate(); */
 
   const { loading, error, doApiCall, resetErrors } = useFetch();
 
@@ -67,9 +70,11 @@ function SignUp({ onChangeToLogin, isOnline }) {
         reset(signUpObj);
         setImage("");
 
-        toast.success("User Account Created Successfully", {
+        toast.success("User Account Created Successfully, Login", {
           toastId: "success3",
         });
+
+        onChangeToLogin();
       }
     } catch (err) {}
   };
@@ -77,7 +82,8 @@ function SignUp({ onChangeToLogin, isOnline }) {
   const handleFileChange = async (event) => {
     const { files } = event.target;
     if (!imageTypes.includes(files[0].type)) {
-      return setImageError("InValid Image Type Selected!");
+      setImageError("InValid Image Type Selected!");
+      return;
     }
     const imageSource = await getImageFromFile(files[0]);
     setImage(imageSource);
@@ -115,7 +121,7 @@ function SignUp({ onChangeToLogin, isOnline }) {
                 <img
                   src={image}
                   alt="Avatar"
-                  className="rounded-full h-[92px] w-[94px]"
+                  className="rounded-full h-[92px] w-[94px] object-contain"
                 />
               ) : (
                 <UserIcon className="text-gray-200 " />

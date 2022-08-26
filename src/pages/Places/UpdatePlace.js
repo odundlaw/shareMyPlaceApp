@@ -1,13 +1,18 @@
 import React from "react";
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
+import useFetch from "../../hooks/useFetch";
+
+import { toast } from "react-toastify";
 
 import { PlusCircleIcon } from "@heroicons/react/outline";
-import { fetchPlaces } from "./UserPlaces";
 
 function UpdatePlace() {
   const [place, setPlace] = React.useState(null);
   const { placeId } = useParams();
+
+  const { doApiCall, resetErrors, loading, error } = useFetch();
+
   const formRef = React.useRef(null);
 
   const {
@@ -17,17 +22,33 @@ function UpdatePlace() {
     reset,
   } = useForm({ mode: "onChange", shouldUnregister: true });
 
-  const resetAsyncForm = React.useCallback(() => {
-    const pp = fetchPlaces().find((p) => p.id === placeId);
-    reset(pp);
-    setPlace(pp);
-  }, [placeId, reset]);
+  const resetAsyncForm = React.useCallback(async () => {
+    try {
+      resetErrors();
+      const placeById = await doApiCall(`place/${placeId}`);
+      if (placeById.statusText === "OK") {
+        reset(placeById.data);
+        setPlace(placeById.data);
+      }
+    } catch (err) {}
+  }, [placeId, reset, resetErrors, doApiCall]);
 
   React.useEffect(() => {
     resetAsyncForm();
   }, [resetAsyncForm]);
 
   const onSubmit = (data) => console.log(data);
+
+  if (error) {
+    toast.error(
+      typeof error === "string" ? error : "Unable to Fetch Place! Try again.",
+      { toastId: "error6" }
+    );
+  }
+
+  if(loading){
+    <div>Loading...</div>
+  }
 
   return (
     <div className="flex justify-center w-[80%] md:w-[60%] lg:w-[50%] sm:w-[60%]">

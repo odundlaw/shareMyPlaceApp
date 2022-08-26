@@ -1,27 +1,15 @@
 import React from "react";
-import { useLocation } from "react-router";
-
 import UserList from "./Components/UserList";
 
-import { toast } from "react-toastify";
 import useFetch from "../../hooks/useFetch";
-import useAuth from "../../Context/Auth/AuthState";
-import swal from "sweetalert";
+/* import useAuth from "../../Context/Auth/AuthState"; */
+import Loader from "../../shared/Components/UI/Loader";
+import { toast } from "react-toastify";
 
 function UsersPage() {
   const [users, setUsers] = React.useState([]);
 
-  const location = useLocation();
-
-  const { isLoggedIn } = useAuth();
-
-  const { resetErrors, loading, doApiCall, errors } = useFetch();
-
-  React.useEffect(() => {
-    if (["login"].includes(location.state?.from) && isLoggedIn) {
-      toast.success("You have Signed In Successfully!", { toastId: "toast2" });
-    }
-  }, [location.state?.from, isLoggedIn]);
+  const { resetErrors, loading, doApiCall, error } = useFetch();
 
   React.useEffect(() => {
     (async () => {
@@ -35,11 +23,12 @@ function UsersPage() {
     })();
   }, [setUsers, doApiCall, resetErrors]);
 
-  if(loading){
-    swal(
-      "Internet Connection Error!",
-      "Check your internet Connection and try again!",
-    );
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    toast.error("Unable to Fetch User at this Time!", { toastId: "error4" });
   }
 
   return (
